@@ -1,0 +1,18 @@
+secrets:
+  discord:
+    # Please surround clientID with quotes (so it's a string)
+    clientID: '000000000000000000'
+    clientSecret: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+  github:
+    clientID: eeeeeeeeeeeeeeeeeeee,
+    clientSecret: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+  # Microsoft Azure AD is broken. Please do not fill.
+  microsoft:
+    clientID: ''
+    clientSecret: ''
+location:
+  origin: http://localhost:3000
+  https: false
+webserver:
+  port: 3000
+  sessionSecret: 'abc'
