@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@types/isomorphic-fetch": "^0.0.35",
     "body-parser": "^1.19.0",
     "connect-typeorm": "^1.1.4",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "isomorphic-fetch": "^3.0.0",
     "js-yaml": "^3.14.0",
     "multer": "^1.4.2",
     "passport": "^0.4.1",
@@ -19,6 +22,7 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
+    "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.8",
     "@types/express-session": "^1.17.0",
     "@types/js-yaml": "^3.12.5",

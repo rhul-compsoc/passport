@@ -1,8 +1,9 @@
 import bodyParser from 'body-parser';
 import { TypeormStore } from 'connect-typeorm/out';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import path from 'path';
 import { createConnection, getConnection } from 'typeorm';
 import { configuration } from './config';
 import { Session } from './entity/Session';
@@ -10,12 +11,18 @@ import { User } from './entity/User';
 import { UserConnection } from './entity/UserConnection';
 import { discordStrategy } from './passportStrategy/discordStrategy';
 import { githubStrategy } from './passportStrategy/githubStrategy';
+import { apiGuildRouter } from './router/api/guild';
 import { loginRouter } from './router/login';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
+passport
+  // .use(microsoftStrategy)
+  .use(discordStrategy)
+  .use(githubStrategy)
+
 passport.serializeUser((user: User, done) => {
-  console.log(user)
   done(null, user.id);
 })
 
@@ -44,12 +51,8 @@ const main = async () => {
 
   await connection.synchronize();
 
-  passport
-    // .use(microsoftStrategy)
-    .use(discordStrategy)
-    .use(githubStrategy)
-
   app
+    .use(cookieParser(configuration.webserver.sessionSecret))
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
     .use(session({
@@ -62,11 +65,38 @@ const main = async () => {
       },
       store: new TypeormStore().connect(connection.getRepository(Session))
     }))
+    .use((req, res, next) => {
+      if (req.headers.origin) {
+        const url = new URL(req.headers.origin)
+
+        if (configuration.webserver.allowedOrigins.includes(url.host)) {
+          res.header('Access-Control-Allow-Origin', req.headers.origin)
+          res.header('Access-Control-Allow-Credentials', 'true')
+          res.header('Access-Control-Allow-Methods', 'GET')
+          res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept')
+        }
+      }
+
+      if (typeof req.query.return === 'string') {
+        const url = new URL(req.query.return)
+
+        if (configuration.webserver.allowedOrigins.includes(url.host)) {
+          res.cookie('return', req.query.return)
+        }
+      }
+
+      next();
+    })
     .use(passport.initialize())
     .use(passport.session())
     .use('/login', loginRouter)
-    .get('/', (req: Request, res: Response) => {
-      res.send('You are on the Home page.')
+    .use('/api/guild', apiGuildRouter)
+    .use((req, res, next) => {
+      if (req.cookies.return) {
+        res.redirect(req.cookies.return)
+      } else {
+        next();
+      }
     })
     .use('*', (req, res) => {
       res.send('You have reached a 404 page.');

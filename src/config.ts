@@ -20,6 +20,13 @@ interface Configuration {
   webserver: {
     port: number;
     sessionSecret: string;
+    allowedOrigins: string[];
+  }
+  backends: {
+    hexillium: {
+      location: string;
+      token: string;
+    }
   }
 }
 

@@ -4,15 +4,23 @@ secrets:
     clientID: '000000000000000000'
     clientSecret: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
   github:
-    clientID: eeeeeeeeeeeeeeeeeeee,
+    clientID: eeeeeeeeeeeeeeeeeeee
     clientSecret: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
   # Microsoft Azure AD is broken. Please do not fill.
   microsoft:
     clientID: ''
     clientSecret: ''
+backends:
+  hexillium:
+    location: http://127.0.0.1:1234
+    token: eggeggeggeggeggeggegge==
 location:
   origin: http://localhost:3000
   https: false
 webserver:
   port: 3000
   sessionSecret: 'abc'
+  allowedOrigins:
+    - leo.hexillium.co.uk
+    - 127.0.0.1:3000
+    - localhost:3000
