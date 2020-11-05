@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import multer from 'multer';
-import passport from 'passport';
+import { Router } from "express";
+import multer from "multer";
+import passport from "passport";
 
 const router = Router();
 
@@ -17,34 +17,30 @@ router
   //     failureRedirect: '/fail',
   //   })
   // )
-  .get('/discord',
-    passport.authenticate('discord')
-  )
-  .get('/discord/return',
-    passport.authenticate('discord', {
-      failureRedirect: '/fail',
-      successRedirect: '/',
+  .get("/discord", passport.authenticate("discord"))
+  .get(
+    "/discord/return",
+    passport.authenticate("discord", {
+      failureRedirect: "/fail",
+      successRedirect: "/",
     })
   )
-  .get('/github',
-    passport.authenticate('github')
-  )
-  .get('/github/return',
-    passport.authenticate('github', {
-      failureRedirect: '/fail',
-      successRedirect: '/',
+  .get("/github", passport.authenticate("github"))
+  .get(
+    "/github/return",
+    passport.authenticate("github", {
+      failureRedirect: "/fail",
+      successRedirect: "/",
     })
   )
-  .get('/info', (req, res) => {
+  .get("/info", (req, res) => {
     res.json(req.user);
   })
-  .get('/logout', (req, res) => {
+  .get("/logout", (req, res) => {
     req.logout();
     res.json({
-      ok: true
-    })
-  })
+      ok: true,
+    });
+  });
 
-export {
-  router as loginRouter
-}
+export { router as loginRouter };

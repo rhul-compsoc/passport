@@ -14,14 +14,14 @@ interface UserConnectionInterface {
 @Entity()
 class UserConnection implements UserConnectionInterface {
   @PrimaryColumn({
-    enum: UserConnectionPlatform
+    enum: UserConnectionPlatform,
   })
   platform!: UserConnectionPlatform;
 
   @PrimaryColumn()
   id!: string;
 
-  @ManyToOne(() => User, user => user.connections)
+  @ManyToOne(() => User, (user) => user.connections)
   user!: User;
 
   @Column({ nullable: true })

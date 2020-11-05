@@ -6,8 +6,8 @@ class User {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @OneToMany(() => UserConnection, userConnection => userConnection.user, {
-    eager: true
+  @OneToMany(() => UserConnection, (userConnection) => userConnection.user, {
+    eager: true,
   })
   connections!: UserConnection[];
 }

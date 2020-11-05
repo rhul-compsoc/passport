@@ -1,6 +1,6 @@
-import yaml from 'js-yaml';
-import path from 'path';
-import fs from 'fs';
+import yaml from "js-yaml";
+import path from "path";
+import fs from "fs";
 
 interface OAuthDetails {
   clientID: string;
@@ -21,15 +21,19 @@ interface Configuration {
     port: number;
     sessionSecret: string;
     allowedOrigins: string[];
-  }
+  };
   backends: {
     hexillium: {
       location: string;
       token: string;
-    }
-  }
+    };
+  };
 }
 
-const configuration = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '..', 'data', 'config.yaml'), { encoding: 'utf-8' })) as Configuration
+const configuration = yaml.safeLoad(
+  fs.readFileSync(path.resolve(__dirname, "..", "data", "config.yaml"), {
+    encoding: "utf-8",
+  })
+) as Configuration;
 
-export { configuration }
+export { configuration };
