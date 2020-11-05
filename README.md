@@ -1,5 +1,8 @@
-# Passport
-The RHUL CompSoc Passport will be a frontend to services provided by the society.
+# passport
+The Computing Society Passport is a service for communicating with backend services owned by the Computing Society.
+
+- [Backend](https://github.com/rhul-compsoc/passport)
+- [Frontend](https://github.com/rhul-compsoc/passport-client)
 
 ## Setup
 1. Edit `/data/example_config.yaml` and save changes to `/data/config.yaml`

@@ -21,6 +21,4 @@ webserver:
   port: 3000
   sessionSecret: 'abc'
   allowedOrigins:
-    - leo.hexillium.co.uk
-    - 127.0.0.1:3000
-    - localhost:3000
+    - rhul-compsoc.github.io
