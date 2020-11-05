@@ -100,6 +100,7 @@ const main = async () => {
     .use("/api/guild", apiGuildRouter)
     .use((req, res, next) => {
       if (req.cookies.return) {
+        res.cookie("return", "")
         res.redirect(req.cookies.return);
       } else {
         next();
