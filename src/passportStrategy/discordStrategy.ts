@@ -7,7 +7,7 @@ const discordStrategy = new Strategy(
   {
     clientID: configuration.secrets.discord.clientID,
     clientSecret: configuration.secrets.discord.clientSecret,
-    callbackURL: configuration.location.origin + "/login/discord/return",
+    callbackURL: configuration.location.origin + "/login/" + UserConnectionPlatform.DISCORD + "/return",
     scope: ["identify"],
     passReqToCallback: true,
   },

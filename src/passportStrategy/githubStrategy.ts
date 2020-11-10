@@ -7,7 +7,7 @@ const githubStrategy = new Strategy(
   {
     clientID: configuration.secrets.github.clientID,
     clientSecret: configuration.secrets.github.clientSecret,
-    callbackURL: configuration.location.origin + "/login/github/return",
+    callbackURL: configuration.location.origin + "/login/" + UserConnectionPlatform.GITHUB + "/return",
     passReqToCallback: true,
   },
   (req, accessToken, refreshToken, profile, done) => {
