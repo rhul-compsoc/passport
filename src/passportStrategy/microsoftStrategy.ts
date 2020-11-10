@@ -16,7 +16,7 @@ const microsoftStrategy = new OIDCStrategy(
     clientID: configuration.secrets.microsoft.clientID,
     clientSecret: configuration.secrets.microsoft.clientSecret,
     passReqToCallback: true,
-    redirectUrl: configuration.location.origin + "/login/microsoft/return",
+    redirectUrl: configuration.location.origin + "/login/microsoftonline.com/return",
     responseType: "code",
     scope: ["email", "profile"],
     responseMode: "form_post",

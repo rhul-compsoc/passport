@@ -5,29 +5,29 @@ import passport from "passport";
 const router = Router();
 
 router
-  // .use('/microsoft',
-  //   multer().none(),
-  //   passport.authenticate('azuread-openidconnect', {
-  //     failureRedirect: '/fail'
-  //   })
-  // )
-  // .use('/microsoft/return',
-  //   multer().none(),
-  //   passport.authenticate('azuread-openidconnect', {
-  //     failureRedirect: '/fail',
-  //   })
-  // )
-  .get("/discord", passport.authenticate("discord"))
+  .use('/microsoftonline.com',
+    multer().none(),
+    passport.authenticate('azuread-openidconnect', {
+      failureRedirect: '/fail'
+    })
+  )
+  .use('/microsoftonline.com/return',
+    multer().none(),
+    passport.authenticate('azuread-openidconnect', {
+      failureRedirect: '/fail',
+    })
+  )
+  .get("/discordapp.com", passport.authenticate("discord"))
   .get(
-    "/discord/return",
+    "/discordapp.com/return",
     passport.authenticate("discord", {
       failureRedirect: "/fail",
       successRedirect: "/",
     })
   )
-  .get("/github", passport.authenticate("github"))
+  .get("/github.com", passport.authenticate("github"))
   .get(
-    "/github/return",
+    "/github.com/return",
     passport.authenticate("github", {
       failureRedirect: "/fail",
       successRedirect: "/",

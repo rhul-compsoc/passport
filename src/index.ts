@@ -14,11 +14,13 @@ import { githubStrategy } from "./passportStrategy/githubStrategy";
 import { apiGuildRouter } from "./router/api/guild";
 import { loginRouter } from "./router/login";
 import cookieParser from "cookie-parser";
+import { microsoftStrategy } from "./passportStrategy/microsoftStrategy";
+import multer from "multer";
 
 const app = express();
 
 passport
-  // .use(microsoftStrategy)
+  .use(microsoftStrategy)
   .use(discordStrategy)
   .use(githubStrategy);
 
@@ -71,17 +73,19 @@ const main = async () => {
     )
     .use((req, res, next) => {
       if (req.headers.origin) {
-        const url = new URL(req.headers.origin);
-
-        if (configuration.webserver.allowedOrigins.includes(url.host)) {
-          res.header("Access-Control-Allow-Origin", req.headers.origin);
-          res.header("Access-Control-Allow-Credentials", "true");
-          res.header("Access-Control-Allow-Methods", "GET");
-          res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, Content-Type, Accept"
-          );
-        }
+        try {
+          const url = new URL(req.headers.origin);
+  
+          if (configuration.webserver.allowedOrigins.includes(url.host)) {
+            res.header("Access-Control-Allow-Origin", req.headers.origin);
+            res.header("Access-Control-Allow-Credentials", "true");
+            res.header("Access-Control-Allow-Methods", "GET");
+            res.header(
+              "Access-Control-Allow-Headers",
+              "Origin, Content-Type, Accept"
+            );
+          }
+        } catch {}
       }
 
       if (typeof req.query.return === "string") {

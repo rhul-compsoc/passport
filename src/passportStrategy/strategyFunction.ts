@@ -16,8 +16,6 @@ const strategyFunction = async ({
   userConnection: UserConnectionInterface;
   done: VerifyCallback;
 }) => {
-  console.log(userConnection);
-
   try {
     const connection = getConnection();
     const userConnectionRepo = connection.getRepository(UserConnection);
