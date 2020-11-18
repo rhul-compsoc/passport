@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import { TypeormStore } from "connect-typeorm/out";
+import cookieParser from "cookie-parser";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-import path from "path";
 import { createConnection, getConnection } from "typeorm";
 import { configuration } from "./config";
 import { Session } from "./entity/Session";
@@ -11,11 +11,9 @@ import { User } from "./entity/User";
 import { UserConnection } from "./entity/UserConnection";
 import { discordStrategy } from "./passportStrategy/discordStrategy";
 import { githubStrategy } from "./passportStrategy/githubStrategy";
+import { microsoftStrategy } from "./passportStrategy/microsoftStrategy";
 import { apiGuildRouter } from "./router/api/guild";
 import { loginRouter } from "./router/login";
-import cookieParser from "cookie-parser";
-import { microsoftStrategy } from "./passportStrategy/microsoftStrategy";
-import multer from "multer";
 
 const app = express();
 
@@ -65,7 +63,7 @@ const main = async () => {
         saveUninitialized: false,
         secret: configuration.webserver.sessionSecret,
         cookie: {
-          secure: "auto",
+          secure: configuration.location.https,
           sameSite: "none",
         },
         store: new TypeormStore().connect(connection.getRepository(Session)),
