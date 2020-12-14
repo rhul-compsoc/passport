@@ -63,8 +63,8 @@ const main = async () => {
         saveUninitialized: false,
         secret: configuration.webserver.sessionSecret,
         cookie: {
-          secure: configuration.location.https,
-          sameSite: "none",
+          secure: false,
+          sameSite: 'none'
         },
         store: new TypeormStore().connect(connection.getRepository(Session)),
       })
