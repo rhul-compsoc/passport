@@ -1,9 +1,11 @@
 import { ApolloServer, gql } from "apollo-server-express";
-import express from "express";
-import { hexdelete, hexget, hexpost } from "./hexapi";
+import express, { NextFunction, Request, Response } from "express";
+import { hexdelete, hexget, hexpost } from "./helpers/hexapi";
 import jwt from "jsonwebtoken";
-import { configuration } from "./config";
+import { configuration } from "./helpers/configuration";
 import cookieParser from 'cookie-parser';
+import { loginRouter } from "./routers/login";
+import { unpack } from "./helpers/jwt";
 
 const typeDefs = gql`
   type User {
@@ -108,22 +110,20 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   context: ({ req }) => {
-    try {
-      const token = req.cookies.token || ''
-      const user = jwt.verify(token, configuration.secrets.jwt)
-      return { user }
-    } finally {
-      return { user: null }
+    console.log(req.cookies.token)
+    console.log(unpack(req.cookies.token))
+    return {
+      user: unpack(req.cookies.token)
     }
   }
 });
 
 const app = express();
 
-server.applyMiddleware({ app });
-
 app
   .use(cookieParser(configuration.secrets.cookies))
+  .use('/login', loginRouter)
   
+server.applyMiddleware({ app });
 
 app.listen(3000);

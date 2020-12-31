@@ -1,6 +1,6 @@
 import fetch, { RequestInit } from "node-fetch";
-import { configuration } from "./config";
-import { convertKeys } from "./convertKeys";
+import { configuration } from "./configuration";
+import { convertKeys } from "../convertKeys";
 
 const hexget = (url: string, options: RequestInit = {}): Promise<any> => {
   options.headers = Object.assign({}, options.headers, {

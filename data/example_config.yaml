@@ -1,3 +1,8 @@
+frontend:
+  allowedOrigins:
+    - https://rhul-compsoc.github.io/passport-client/
+    - http://localhost:8000
+    - http://127.0.0.1:8000
 location:
   origin: http://127.0.0.1:3000
 secrets:
@@ -10,3 +15,4 @@ secrets:
     discord:
       clientId: '768210032180461578'
       clientSecret: jkhdsajkhsdahuioisdanxzc
+      redirect: /login/callback

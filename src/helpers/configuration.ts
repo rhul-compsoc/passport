@@ -5,11 +5,15 @@ import fs from "fs";
 interface OAuthConfiguration {
   clientId: string
   clientSecret: string
+  redirect: string
 }
 
 interface Configuration {
   location: {
     origin: string
+  }
+  frontend: {
+    allowedOrigins: string[]
   }
   secrets: {
     jwt: string
@@ -25,7 +29,7 @@ interface Configuration {
 }
 
 const configuration = yaml.safeLoad(
-  fs.readFileSync(path.resolve(__dirname, "..", "data", "config.yaml"), {
+  fs.readFileSync(path.resolve(__dirname, "..", "..", "data", "config.yaml"), {
     encoding: "utf-8",
   })
 ) as Configuration;
