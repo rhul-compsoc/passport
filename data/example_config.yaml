@@ -1,0 +1,12 @@
+location:
+  origin: http://127.0.0.1:3000
+secrets:
+  jwt: daksjhhjksdahjkasdjhkhjksda
+  cookies: stanloonaprayforhaseul
+  hexillium:
+    link: http://127.0.0.1:4000
+    token: hextokenhere
+  oauth:
+    discord:
+      clientId: '768210032180461578'
+      clientSecret: jkhdsajkhsdahuioisdanxzc
