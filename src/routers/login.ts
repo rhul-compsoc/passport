@@ -33,8 +33,6 @@ router
         body: params
       }).then(a => a.json())
 
-      console.log('auth', auth)
-
       if (auth === null) return next();
       if (typeof auth.access_token !== 'string') return next();
 
@@ -43,8 +41,6 @@ router
           Authorization: `Bearer ${auth.access_token}`
         }
       }).then(a => a.json())
-
-      console.log('user', user)
 
       if (user === null) return next();
       if (typeof user.id !== 'string') return next();
