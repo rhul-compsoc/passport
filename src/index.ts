@@ -6,6 +6,7 @@ import { configuration } from "./helpers/configuration";
 import cookieParser from 'cookie-parser';
 import { loginRouter } from "./routers/login";
 import { unpack } from "./helpers/jwt";
+import { cors } from "./middleware/cors";
 
 const typeDefs = gql`
   type User {
@@ -57,7 +58,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(memberId: ID!, guildId: ID!): User
+    user(memberId: ID, guildId: ID!): User
     guild(guildId: ID!): Guild
   }
 `;
@@ -65,7 +66,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     user: (parent: any, args: any, context: any, info: any) => {
-      return hexget(`/api/guild/${args.guildId}/member/${args.memberId}/info`);
+      return hexget(`/api/guild/${args.guildId}/member/${args.memberId || context.user?.id }/info`);
     },
     guild: (parent: any, args: any, context: any, info: any) => {
       return hexget(`/api/getmembers/${args.guildId}`);
@@ -110,8 +111,6 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   context: ({ req }) => {
-    console.log(req.cookies.token)
-    console.log(unpack(req.cookies.token))
     return {
       user: unpack(req.cookies.token)
     }
@@ -121,9 +120,10 @@ const server = new ApolloServer({
 const app = express();
 
 app
+  .use(cors)
   .use(cookieParser(configuration.secrets.cookies))
   .use('/login', loginRouter)
-  
-server.applyMiddleware({ app });
+
+server.applyMiddleware({ app, cors: false });
 
 app.listen(3000);
