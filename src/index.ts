@@ -76,6 +76,7 @@ const server = new ApolloServer({
   context: async ({ req }) => {
     const user = unpack(req.cookies.token);
 
+    console.log('Remote Address: ', req.headers['x-forwarded-for'] || req.connection.remoteAddress)
     if (user) {
       return {
         user,
