@@ -6,7 +6,7 @@ const captureReturnLink = (req: Request, res: Response, next: NextFunction) => {
   const validDetials = parseIfValidFrontendOrigin(req.query.return);
 
   if (validDetials) {
-    res.cookie('return', validDetials.href)
+    res.cookie('return', validDetials.href, configuration.backend.cookie)
   }
   next();
 }

@@ -45,7 +45,7 @@ router
       if (user === null) return next();
       if (typeof user.id !== 'string') return next();
 
-      res.cookie('token', sign(user))
+      res.cookie('token', sign(user), configuration.backend.cookie)
       next()
     } catch (e) {
       next(e);

@@ -1,6 +1,7 @@
 import yaml from "js-yaml";
 import path from "path";
 import fs from "fs";
+import { CookieOptions } from "express";
 
 interface OAuthConfiguration {
   clientId: string
@@ -11,6 +12,7 @@ interface OAuthConfiguration {
 interface Configuration {
   backend: {
     port: number
+    cookie: CookieOptions
   }
   frontend: {
     allowedOrigins: string[]

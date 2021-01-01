@@ -1,5 +1,8 @@
 backend:
   port: 3000
+  cookie:
+    secure: false
+    sameSite: 'none'
 frontend:
   allowedOrigins:
     - https://rhul-compsoc.github.io/passport-client/
