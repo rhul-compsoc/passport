@@ -83,10 +83,7 @@ const server = new ApolloServer({
       }
     }
 
-    return {
-      user: null,
-      currentUser: null,
-    }
+    throw new Error('You are not logged in yet!')
   }
 });
 

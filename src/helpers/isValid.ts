@@ -5,7 +5,7 @@ const parseIfValidFrontendOrigin = (input: any): URL | null => {
     try {
       const url = new URL(input);
 
-      if (configuration.frontend.allowedOrigins.includes(input)) {
+      if (configuration.frontend.allowedOrigins.includes(url.origin)) {
         return url;
       }
     } catch {}

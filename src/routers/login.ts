@@ -13,6 +13,10 @@ router
   .get('/redirect', captureReturnLink, (req, res) => {
     res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify`)
   })
+  .get('/logout', captureReturnLink, (req, res, next) => {
+    res.clearCookie('token', configuration.backend.cookie)
+    next()
+  }, returnToClient)
   .get('/return', async (req, res, next) => {
     const code = req.query.code;
 
