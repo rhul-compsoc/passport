@@ -9,11 +9,16 @@ interface OAuthConfiguration {
 }
 
 interface Configuration {
+  frontend: {
+    allowedOrigins: string[]
+  }
   location: {
     origin: string
   }
-  frontend: {
-    allowedOrigins: string[]
+  compsoc: {
+    guildId: string
+    avatarUrl: string
+    guildName: string
   }
   secrets: {
     jwt: string

@@ -24,19 +24,21 @@ const hexget = (url: string, options: RequestInit = {}): Promise<any> => {
           }
 
           if (dat.trim() === '') return null;
-          return convertKeys(JSON.parse(dat));
+          return JSON.parse(dat);
         })
     )
     .then((val) => {
       // If null, return null
       if (val === null) return null;
 
+      const parsed = convertKeys(val);
+
       // If an empty array, return the empty array
-      if (Array.isArray(val) && val.length === 0) return val;
+      if (Array.isArray(parsed) && parsed.length === 0) return parsed;
 
       // If an empty object, return null
-      if (Object.keys(val).length === 0) return null;
-      return val;
+      if (Object.keys(parsed).length === 0) return null;
+      return parsed;
     });
 };
 

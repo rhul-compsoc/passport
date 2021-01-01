@@ -5,6 +5,10 @@ frontend:
     - http://127.0.0.1:8000
 location:
   origin: http://127.0.0.1:3000
+compsoc:
+  guildId: '500612695570120704'
+  avatarUrl: https://cdn.discordapp.com/icons/500612695570120704/65508b6acf40d3ef4d4999a1fc7b3214.png
+  guildName: RHUL Computing Society
 secrets:
   jwt: daksjhhjksdahjkasdjhkhjksda
   cookies: stanloonaprayforhaseul
