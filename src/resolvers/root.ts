@@ -1,6 +1,6 @@
 import { configuration } from "../helpers/configuration";
 import { hexdelete, hexget, hexpost } from "../helpers/hexapi";
-import { isAllowedToUseArguments } from "../helpers/isValid";
+import { isAllowedToUseArguments, throwIfNotVerified } from "../helpers/isValid";
 import fetch from "node-fetch";
 import { addHyphensToUuidString } from "../helpers/addHyphensToUuidString";
 
@@ -33,6 +33,7 @@ const rootResolver = {
       context: any,
       info: any
     ) => {
+      throwIfNotVerified(context)
       if (!isAllowedToUseArguments(args, context)) {
         throw new Error("You are not this user!");
       }
@@ -65,6 +66,7 @@ const rootResolver = {
       );
     },
     deleteGameConnection: (parent: any, args: any, context: any, info: any) => {
+      throwIfNotVerified(context)
       if (!isAllowedToUseArguments(args, context)) {
         throw new Error("You are not this user!");
       }

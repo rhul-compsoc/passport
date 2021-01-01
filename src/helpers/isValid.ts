@@ -24,4 +24,10 @@ const isAllowedToUseArguments = (args: any, context: any): boolean => {
   return true;
 };
 
-export { parseIfValidFrontendOrigin, isAllowedToUseArguments };
+const throwIfNotVerified = (context: any): void => {
+  if (!context.currentUser || context.currentUser.studentVerified !== true) {
+    throw new Error('You are not a verified member of CompSoc.')
+  }
+}
+
+export { parseIfValidFrontendOrigin, isAllowedToUseArguments, throwIfNotVerified };
