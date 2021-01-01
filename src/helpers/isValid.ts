@@ -12,16 +12,16 @@ const parseIfValidFrontendOrigin = (input: any): URL | null => {
   }
 
   return null;
-}
+};
 
 const isAllowedToUseArguments = (args: any, context: any): boolean => {
-  if (args.guildId && args.guildId !== context.currentUser.guildId) return false
-  if (args.memberId && args.memberId !== context.currentUser.memberId) return false
-  if (typeof args.input === 'object') return isAllowedToUseArguments(args.input, context);
-  return true
-}
+  if (args.guildId && args.guildId !== context.currentUser.guildId)
+    return false;
+  if (args.memberId && args.memberId !== context.currentUser.memberId)
+    return false;
+  if (typeof args.input === "object")
+    return isAllowedToUseArguments(args.input, context);
+  return true;
+};
 
-export {
-  parseIfValidFrontendOrigin,
-  isAllowedToUseArguments
-}
+export { parseIfValidFrontendOrigin, isAllowedToUseArguments };

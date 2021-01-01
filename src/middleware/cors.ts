@@ -9,18 +9,15 @@ const cors = (req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE");
     res.header("Allow", "GET, POST, OPTIONS, DELETE");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, Content-Type, Accept"
-    );
+    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
   }
 
   // Check if it's an OPTIONS query
-  if (req.method === 'OPTIONS') {
-    res.send()
+  if (req.method === "OPTIONS") {
+    res.send();
   } else {
     next();
   }
-}
+};
 
-export { cors }
+export { cors };

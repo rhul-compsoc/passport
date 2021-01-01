@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from "apollo-server-express";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 import express from "express";
 import { configuration } from "./helpers/configuration";
 import { hexget } from "./helpers/hexapi";
@@ -79,12 +79,14 @@ const server = new ApolloServer({
     if (user) {
       return {
         user,
-        currentUser: await hexget(`/api/guild/500612695570120704/member/${user.id}/info`)
-      }
+        currentUser: await hexget(
+          `/api/guild/500612695570120704/member/${user.id}/info`
+        ),
+      };
     }
 
-    throw new Error('You are not logged in yet!')
-  }
+    throw new Error("You are not logged in yet!");
+  },
 });
 
 const app = express();
@@ -92,7 +94,7 @@ const app = express();
 app
   .use(cors)
   .use(cookieParser(configuration.secrets.cookies))
-  .use('/login', loginRouter)
+  .use("/login", loginRouter);
 
 server.applyMiddleware({ app, cors: false });
 

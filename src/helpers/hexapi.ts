@@ -10,22 +10,23 @@ const hexget = (url: string, options: RequestInit = {}): Promise<any> => {
   return fetch(configuration.secrets.hexillium.link + url, options)
     .then((req) =>
       // Grab the text
-      req.text()
-        .then((dat) => {
-          console.log('Method: ', options.method || 'GET')
-          console.log('Request: ', url);
-          console.log('Status: ', req.status);
-          console.log('Response: ', dat);
-          if (options.body) console.log('Body: ', options.body);
-          console.log();
+      req.text().then((dat) => {
+        console.log("Method: ", options.method || "GET");
+        console.log("Request: ", url);
+        console.log("Status: ", req.status);
+        console.log("Response: ", dat);
+        if (options.body) console.log("Body: ", options.body);
+        console.log();
 
-          if (!req.status.toString().startsWith('2')) {
-            throw new Error(`Error ${req.status} whilst fetching resource '${url}': ${dat}`)
-          }
+        if (!req.status.toString().startsWith("2")) {
+          throw new Error(
+            `Error ${req.status} whilst fetching resource '${url}': ${dat}`
+          );
+        }
 
-          if (dat.trim() === '') return null;
-          return JSON.parse(dat);
-        })
+        if (dat.trim() === "") return null;
+        return JSON.parse(dat);
+      })
     )
     .then((val) => {
       // If null, return null

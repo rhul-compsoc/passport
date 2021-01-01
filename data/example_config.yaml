@@ -2,7 +2,7 @@ backend:
   port: 3000
   cookie:
     secure: false
-    sameSite: 'none'
+    sameSite: "none"
 frontend:
   allowedOrigins:
     - https://rhul-compsoc.github.io/passport-client/
@@ -11,7 +11,7 @@ frontend:
 location:
   origin: http://127.0.0.1:3000
 compsoc:
-  guildId: '500612695570120704'
+  guildId: "500612695570120704"
   avatarUrl: https://cdn.discordapp.com/icons/500612695570120704/65508b6acf40d3ef4d4999a1fc7b3214.png
   guildName: RHUL Computing Society
 secrets:
@@ -22,6 +22,6 @@ secrets:
     token: hextokenhere
   oauth:
     discord:
-      clientId: '768210032180461578'
+      clientId: "768210032180461578"
       clientSecret: jkhdsajkhsdahuioisdanxzc
       redirect: /login/callback

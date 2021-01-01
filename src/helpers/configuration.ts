@@ -4,38 +4,38 @@ import fs from "fs";
 import { CookieOptions } from "express";
 
 interface OAuthConfiguration {
-  clientId: string
-  clientSecret: string
-  redirect: string
+  clientId: string;
+  clientSecret: string;
+  redirect: string;
 }
 
 interface Configuration {
   backend: {
-    port: number
-    cookie: CookieOptions
-  }
+    port: number;
+    cookie: CookieOptions;
+  };
   frontend: {
-    allowedOrigins: string[]
-  }
+    allowedOrigins: string[];
+  };
   location: {
-    origin: string
-  }
+    origin: string;
+  };
   compsoc: {
-    guildId: string
-    avatarUrl: string
-    guildName: string
-  }
+    guildId: string;
+    avatarUrl: string;
+    guildName: string;
+  };
   secrets: {
-    jwt: string
-    cookies: string
+    jwt: string;
+    cookies: string;
     hexillium: {
-      link: string
-      token: string
-    }
+      link: string;
+      token: string;
+    };
     oauth: {
-      discord: OAuthConfiguration
-    }
-  }
+      discord: OAuthConfiguration;
+    };
+  };
 }
 
 const configuration = yaml.safeLoad(
