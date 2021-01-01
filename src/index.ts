@@ -99,4 +99,4 @@ app
 
 server.applyMiddleware({ app, cors: false });
 
-app.listen(3000);
+app.listen(configuration.backend.port);

@@ -9,6 +9,9 @@ interface OAuthConfiguration {
 }
 
 interface Configuration {
+  backend: {
+    port: number
+  }
   frontend: {
     allowedOrigins: string[]
   }
