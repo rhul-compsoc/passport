@@ -14,7 +14,7 @@ const captureReturnLink = (req: Request, res: Response, next: NextFunction) => {
 }
 
 const returnToClient = (req: Request, res: Response) => {
-  const validDetails = parseIfValidFrontendOrigin(req.cookies.return)
+  const validDetails = parseIfValidFrontendOrigin(req.query.return || req.cookies.return)
   res.clearCookie('return', configuration.backend.cookie);
 
   if (validDetails) {
