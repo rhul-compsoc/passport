@@ -1,7 +1,8 @@
-import { config } from "process";
 import { configuration } from "../helpers/configuration";
 import { hexdelete, hexget, hexpost } from "../helpers/hexapi";
 import { isAllowedToUseArguments } from "../helpers/isValid";
+import fetch from "node-fetch";
+import { addHyphensToUuidString } from "../helpers/addHyphensToUuidString";
 
 const rootResolver = {
   Query: {
@@ -21,13 +22,47 @@ const rootResolver = {
         return [];
       }
     },
+    gameTypes: () => {
+      return configuration.games;
+    },
   },
   Mutation: {
-    createGameConnection: (parent: any, args: any, context: any, info: any) => {
+    createGameConnection: async (
+      parent: any,
+      args: any,
+      context: any,
+      info: any
+    ) => {
       if (!isAllowedToUseArguments(args, context)) {
         throw new Error("You are not this user!");
       }
-      return hexpost(`/api/games/bindings/create`, undefined, args.input);
+
+      let input = args.input;
+
+      switch (args.input.gameId as string) {
+        case "minecraft":
+          const data = await fetch(
+            `https://api.mojang.com/users/profiles/minecraft/${encodeURIComponent(
+              args.input.gameUsername
+            )}`
+          ).then(res => res.status === 200 ? res.json() : null);
+
+          if (data?.id) {
+            input.gameUserId = addHyphensToUuidString(data.id);
+            input.gameUsername = data.name
+          } else {
+            throw new Error("Failed to get UUID from Minecraft username");
+          }
+          break;
+        default:
+          throw new Error("Failed to resolve UUID from username");
+      }
+
+      return hexpost(
+        `/api/games/bindings/create`,
+        undefined,
+        input
+      );
     },
     deleteGameConnection: (parent: any, args: any, context: any, info: any) => {
       if (!isAllowedToUseArguments(args, context)) {

@@ -27,7 +27,6 @@ const typeDefs = gql`
   input GameCreationInput {
     guildId: ID!
     gameId: ID!
-    gameUserId: ID!
     gameUsername: ID
     memberId: ID!
     userBanned: Boolean
@@ -42,7 +41,7 @@ const typeDefs = gql`
     bindingId: Int!
     gameId: ID!
     gameUsername: String
-    gameUserId: ID
+    gameUserId: ID!
     memberId: ID!
     userBanned: Boolean
   }
@@ -61,6 +60,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    gameTypes: [String!]
     currentUser: User
     currentGuilds: [Guild!]
     user(memberId: ID!, guildId: ID!): User

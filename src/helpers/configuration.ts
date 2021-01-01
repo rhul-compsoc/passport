@@ -17,6 +17,7 @@ interface Configuration {
   frontend: {
     allowedOrigins: string[];
   };
+  games: string[];
   location: {
     origin: string;
   };
