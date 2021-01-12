@@ -1,7 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-express";
 import cookieParser from "cookie-parser";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { configuration } from "./helpers/configuration";
+import { InvalidTokenException, LoginException } from "./helpers/exceptions";
 import { hexget } from "./helpers/hexapi";
 import { unpack } from "./helpers/jwt";
 import { cors } from "./middleware/cors";
@@ -74,6 +75,8 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   context: async ({ req }) => {
+    if (!req.cookies.token) throw new LoginException('You are not signed in yet!')
+
     const user = unpack(req.cookies.token);
 
     console.log('Remote Address: ', req.headers['x-forwarded-for'] || req.connection.remoteAddress)
@@ -86,7 +89,7 @@ const server = new ApolloServer({
       };
     }
 
-    throw new Error("You are not logged in yet!");
+    throw new InvalidTokenException('You are not signed in yet!');
   },
 });
 
@@ -95,7 +98,18 @@ const app = express();
 app
   .use(cors)
   .use(cookieParser(configuration.secrets.cookies))
-  .use("/login", loginRouter);
+  .use("/login", loginRouter)
+  .use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (err instanceof LoginException) {
+      res.status(401)
+    } else if (err instanceof InvalidTokenException) {
+      res.status(403)
+    } else {
+      res.status(500)
+    }
+
+    res.send(err)
+  })
 
 server.applyMiddleware({ app, cors: false });
 
