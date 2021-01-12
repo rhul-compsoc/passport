@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer, AuthenticationError, gql } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import express, { NextFunction, Request, Response } from "express";
 import { configuration } from "./helpers/configuration";
@@ -75,7 +75,7 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   context: async ({ req }) => {
-    if (!req.cookies.token) throw new LoginException('You are not signed in yet!')
+    if (!req.cookies.token) throw new AuthenticationError('You are not signed in yet!')
 
     const user = unpack(req.cookies.token);
 
@@ -89,7 +89,7 @@ const server = new ApolloServer({
       };
     }
 
-    throw new InvalidTokenException('You are not signed in yet!');
+    throw new AuthenticationError('You are not signed in yet!');
   },
 });
 
